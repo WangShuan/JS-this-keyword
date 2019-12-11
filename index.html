@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+    <style>
+        h3 {
+            color: red;
+        }
+
+        .active {
+            background-color: seagreen;
+            border: 0;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+        }
+
+        #box2 {
+            height: 200px;
+        }
+
+        #box2>.mylink,
+        .mylink>p,
+        .mylink>img {
+            margin: 0;
+            padding: 0;
+        }
+
+        .mylink {
+            position: relative;
+            margin: 10px;
+            width: 185px;
+            height: 200px;
+            display: block;
+            float: left;
+        }
+
+        .mylink>img {
+            width: 185px;
+            height: 200px;
+        }
+
+        .mylink>p {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            color: snow;
+            background: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        #box3 {
+            width: 250px;
+            height: 40px;
+            line-height: 40px;
+            background-color: rgba(218, 250, 36, 0.7);
+            color: saddlebrown;
+            text-align: center;
+        }
+
+        .bt {
+            width: 65px;
+            height: 65px;
+            background: url('./img/icon_00.png');
+            float: left;
+            margin: 10px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #box4 {
+            width: 250px;
+            border: 1px solid black;
+            margin: 20px;
+        }
+
+        #box4 h4 {
+            margin: 0;
+            padding: 0;
+            border: 1px solid black;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 20px;
+            background: deepskyblue
+            url('./img/ico2.gif') no-repeat 7px
+            center;
+        }
+
+        #box4 ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box4 ul li {
+            padding-left: 30px;
+            line-height: 30px;
+            border: 1px solid black;
+        }
+
+        #box4 ul .active {
+            background: purple;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>有三個按鈕 點擊後改變其樣式</h3>
+    點擊後先清空所有按鈕的樣式 <br>
+    再給正在被點擊的那個按鈕(this)添加樣式<br><br>
+    <input type="button" value="按鈕1">
+    <input type="button" value="按鈕2">
+    <input type="button" value="按鈕3">
+
+    <script>
+        var oBt = document.getElementsByTagName('input')
+        for (i = 0; i < oBt.length; i++) {
+            oBt[i].onclick = function () {
+                for (j = 0; j < oBt.length; j++) {
+                    oBt[j].className = ''
+                }
+                this.className = 'active'
+            }
+        }
+    </script>
+
+    <h3>滑鼠的各種常用事件</h3>
+    // 小小注意事項：<br>
+    // 不能在同一個元素上‘同時’綁定單擊/按下 通常會只觸發其一<br><br>
+    <div id="box"></div>
+    <script>
+        var oBox = document.getElementById('box')
+        oBox.onclick = function () {
+            alert('單擊事件')
+        }
+        oBox.ondblclick = function () {
+            alert('雙擊事件')
+        }
+        // oBox.onmousedown=function(){
+        //     alert('點下事件')
+        // }
+        // oBox.onmouseup=function(){
+        //     alert('放手事件')
+        // }
+        oBox.onmouseover = function () {
+            console.log('移入')
+        }
+        oBox.onmouseout = function () {
+            console.log('移出')
+        }
+        oBox.onmousemove = function () {
+            console.log('移動')
+        }
+    </script>
+
+    <h3>移入/移出案例</h3>
+    有三個圖片加文字 滑鼠移入顯示文字 移出隱藏<br><br>
+    <div id="box2">
+        <a href="#" class="mylink">
+            <img src="./img/bg.png" alt="">
+            <p>我是很夯的Apple</p>
+        </a>
+        <a href="#" class="mylink">
+            <img src="./img/bg.png" alt="">
+            <p>我是很夯的Apple</p>
+        </a>
+        <a href="#" class="mylink">
+            <img src="./img/bg.png" alt="">
+            <p>我是很夯的Apple</p>
+        </a>
+    </div>
+    <script>
+        var oBox2 = document.getElementById('box2')
+        var aNews = oBox2.getElementsByTagName('a')
+
+        for (i = 0; i < aNews.length; i++) {
+            aNews[i].onmouseover = function () {
+                this.getElementsByTagName('p')[0].style.display = 'block'
+            }
+            aNews[i].onmouseout = function () {
+                this.getElementsByTagName('p')[0].style.display = 'none'
+            }
+        }
+    </script>
+
+    <h3>自定義屬性</h3>
+    可以自己設定一個屬性名稱 方便用來修改元素的一些屬性<br><br>
+    <div id="box3">點我可以換顏色</div>
+    <script>
+        oTitle = document.getElementById('box3')
+        oTitle.c = 'red'
+        oTitle.bg = 'black'
+        oTitle.onclick = function () {
+            if (oTitle.c == 'red') {
+                oTitle.style.color = 'snow'
+                oTitle.c = 'snow'
+                oTitle.style.backgroundColor = 'rgba(0, 0, 36, 0.7)'
+            } else {
+                oTitle.style.color = 'red'
+                oTitle.c = 'red'
+                oTitle.style.backgroundColor = 'rgba(218, 250, 36, 0.7)'
+            }
+        }
+    </script>
+
+    <h3>有十個按鈕 點擊後切換背景圖片</h3>
+    使用自定義屬性給每個按鈕添加 src 屬性<br>
+    然後用三目運算符改變按鈕背景的 src屬性<br><br>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+    <div class="bt"></div>
+
+    <script>
+        var aBt = document.getElementsByClassName('bt')
+        for (i = 0; i < aBt.length; i++) {
+            aBt[i].src = "url('./img/icon_00.png')"
+            aBt[i].isShow = true
+            aBt[i].onclick = function () {
+                this.isShow = !this.isShow
+                this.style.backgroundImage = this.isShow ?
+                "url('./img/icon_00.png')" :
+                "url('./img/icon_01.png')"
+            }
+        }
+    </script>
+
+    <h3 style="margin-top: 200px;">自定義屬性案例：QQ好友列表</h3>
+    重點一：點擊h4標籤改變ul顯示狀態 h4與ul為兄弟關係 <u style="color: teal;">使用自定義屬性獲取下標</u><br>
+    重點二：點擊li為其添加樣式 並把其他li的樣式清除 <u style="color: teal;">點擊後清除所有同tagName的樣式</u>
+    <div id="box4">
+        <div class="section">
+            <h4>我的列表1<span>(3/5)</span></h4>
+            <ul>
+                <li>我的好友1</li>
+                <li>我的好友2</li>
+                <li>我的好友3</li>
+                <li>我的好友4</li>
+                <li>我的好友5</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>我的列表２<span>(1/3)</span></h4>
+            <ul>
+                <li>我的好友1</li>
+                <li>我的好友2</li>
+                <li>我的好友3</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h4>我的列表3<span>(1/1)</span></h4>
+            <ul>
+                <li>我的好友1</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var oBox4 = document.getElementById('box4')
+        var aSection = document.getElementsByClassName('section')
+
+        for (i = 0; i < aSection.length; i++) {
+            var oTitle2 = aSection[i].getElementsByTagName('h4')[0]
+            oTitle2.isShow = true
+            oTitle2.i = i //重點在這裡 用自定義屬性獲取目前下標
+            oTitle2.onclick = function () {
+                this.isShow = !this.isShow
+                this.style.background = this.isShow ? "deepskyblue url('./img/ico2.gif') no-repeat 7px center" :
+                    "deepskyblue url('./img/ico1.gif') no-repeat 7px center"
+                var oUl = aSection[this.i].getElementsByTagName('ul')[0]
+                oUl.style.display = this.isShow ? 'block' : 'none'
+            }
+        }
+        var oLi = oBox4.getElementsByTagName('li')
+        var now=null
+        for (j = 0; j < oLi.length; j++) {
+            oLi[j].onclick = function () {
+                // 方法一：
+                // 用遍歷把所有li樣式都清空 再給當前li添加樣式
+                // for (k = 0; k < oLi.length; k++) {
+                //     oLi[k].className = ''
+                // }
+                // if (this.className == '') {
+                //     this.className = 'active'
+                // } else {
+                //     this.className = ''
+                // }
+
+                // 方法二(推薦)：
+                // 設一個空的變量 點擊後讓這個變量的值變成當前選中的li 並給予樣式
+                // 判斷當變量不為空的時候(表示目前有一個已選中的li) 把它的樣式清空
+                if(now){
+                    now.className=''
+                }
+                now=this
+                now.className='active'
+            }
+        }
+    </script>
+
+</body>
+
+</html>
